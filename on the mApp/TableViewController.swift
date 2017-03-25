@@ -25,9 +25,12 @@ class TableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         // Do any additional setup after loading the view, typically from a nib.
         super.viewWillAppear(animated)
+        print("tableViewBefore\(self.students.count)")
+        print("arrayBefore\(StudentLocation.studentLocationArray.count)")
         self.students = StudentLocation.studentLocationArray
-            self.tableView.reloadData()
-        
+        self.tableView.reloadData()
+        print("tableViewAfter\(self.students.count)")
+        print("arrayAfter\(StudentLocation.studentLocationArray.count)")
     }
 }
 
@@ -51,6 +54,14 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let student = self.students[(indexPath as NSIndexPath).row]
+        if let url = URL(string: student.link!) {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            } else {
+                print("couldnt open that")
+            }
+            
+        }
         print(student.link!)
     }
 }

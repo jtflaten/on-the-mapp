@@ -34,8 +34,8 @@ class MapTabViewController: UITabBarController {
                 }
         
             }
-            print(StudentLocation.studentLocationArray.count)
-    
+            print("tabView\(StudentLocation.studentLocationArray.count)")
+            
         }
     }
 
