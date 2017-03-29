@@ -62,7 +62,7 @@ class LoginViewController: UIViewController {
             }
             /* GUARD: Was there an error? */
             guard (error == nil) else {
-                displayError("There was an error with your request: \(error)")
+                displayError("There was an error with your request: \(String(describing: error))")
                 return
             }
             /* GUARD: Did we get a successful 2XX response? */
@@ -92,7 +92,7 @@ class LoginViewController: UIViewController {
                 displayError("couldn't find 'session'")
                 return
             }
-            if let sessionID = sessionDict["id"] as? String {
+            if (sessionDict["id"] as? String) != nil {
                 performUIUpdatesOnMain {
                     self.completeLogin()
                 }

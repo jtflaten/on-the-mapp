@@ -36,7 +36,7 @@ class ParseClient: NSObject {
             
             /* GUARD: Was there an error? */
             guard (error == nil) else {
-                sendError("There was an error with your request: \(error)")
+                sendError("There was an error with your request: \(String(describing: error))")
                 return
             }
             
@@ -86,9 +86,11 @@ class ParseClient: NSObject {
                 sendError(error: "noResultsFound")
                 return
             }
-            let students = StudentLocation.studentLocationsFromResults(studentLocations!)
-            completionHandlerForStudentLocations(students, nil)
-           
+            performUIUpdatesOnMain {
+                let students = StudentLocation.studentLocationsFromResults(studentLocations!)
+                completionHandlerForStudentLocations(students, nil)
+                StudentLocation.studentLocationArray = StudentLocation.studentLocationsFromResults(studentLocations!)
+            }
         }
     }
         //MARK: Helpers

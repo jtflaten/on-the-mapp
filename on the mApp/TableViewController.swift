@@ -19,8 +19,12 @@ class TableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-     
+        //create the NavBar
+        parent!.navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(image: #imageLiteral(resourceName: "icon_addpin"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(pushToPostInfo)),
+            UIBarButtonItem(image: #imageLiteral(resourceName: "icon_refresh"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(refreshData))
+        ]
+        parent!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.plain, target: self, action: #selector(logout))
     }
     override func viewWillAppear(_ animated: Bool) {
         // Do any additional setup after loading the view, typically from a nib.
@@ -46,9 +50,17 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
         
         let student = students[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "StudentTableViewCell")!
+        
         print("i got down here")
         
-        cell.textLabel?.text = (student.firstName! + student.lastName!)
+        if let firstName = student.firstName, let secondName = student.lastName {
+            let studentName = firstName + " " + secondName
+            cell.textLabel?.text = studentName
+        } else {
+            let studentName = "couldn't find student name"
+            cell.textLabel?.text = studentName
+        }
+     
         return cell
     }
     
@@ -63,6 +75,17 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
             
         }
         print(student.link!)
+    }
+    
+    func pushToPostInfo()   {
+        let postViewController = storyboard!.instantiateViewController(withIdentifier: "PostInfoViewController") as! PostInfoViewController
+        present(postViewController, animated: true, completion: nil)
+    }
+    func refreshData () {
+        viewWillAppear(false)
+    }
+    func logout() {
+        dismiss(animated: true, completion: nil)
     }
 }
 

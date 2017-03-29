@@ -28,6 +28,8 @@ class MapTabViewController: UITabBarController {
             
             if let studentLocations = studentLocations {
                 StudentLocation.studentLocationArray = studentLocations
+               
+                
                 
                 } else {
                 print("what?")
@@ -35,7 +37,9 @@ class MapTabViewController: UITabBarController {
         
             }
             print("tabView\(StudentLocation.studentLocationArray.count)")
-            
+            if let theMap = self.viewControllers?[0] as? MapViewController {
+                theMap.loadStudents(studentInfo: StudentLocation.studentLocationArray)
+            }
         }
     }
 
