@@ -12,7 +12,7 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
-    var students: [StudentLocation] = []
+   // var students: [StudentLocation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,14 +26,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
     // Do any additional setup after loading the view, typically from a nib.
     super.viewWillAppear(true)
-    self.students = StudentLocation.studentLocationArray
+    //self.students = StudentLocation.studentLocationArray
     loadStudents(studentInfo: StudentLocation.studentLocationArray)
+    
     }
     
     
     func loadStudents(studentInfo: [StudentLocation]) {
         var mapAnnotations = [MKPointAnnotation]()
-        let stundentDicts = self.students
+        let stundentDicts = studentInfo
         
         print("its\(stundentDicts.count)")
         
@@ -55,10 +56,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             
             mapAnnotations.append(annotation)
         }
-        self.mapView.addAnnotations(mapAnnotations)
-        print("map anntations \(mapAnnotations.count)")
+        performUIUpdatesOnMain {
+            
+            self.mapView.addAnnotations(mapAnnotations)
+            print("map anntations \(mapAnnotations.count)")
+        
+            }
     }
-    
+   
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         let reuseId = "pin"

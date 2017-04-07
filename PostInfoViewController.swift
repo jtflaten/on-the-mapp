@@ -18,11 +18,16 @@ class PostInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancel))
     }
     @IBAction func findButtonPressed(_ sender: Any) {
         let postLinkController = self.storyboard!.instantiateViewController(withIdentifier: "PostLinkViewController") as! PostLinkViewController
         postLinkController.mapString = self.locationTextField.text
         self.navigationController!.pushViewController(postLinkController, animated: true)
         
+    }
+    
+    func cancel(){
+        self.navigationController!.popToRootViewController(animated: true)
     }
 }

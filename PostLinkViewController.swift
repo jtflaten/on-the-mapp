@@ -24,6 +24,8 @@ class PostLinkViewController: UIViewController {
     var geocoder = CLGeocoder()
     
     override func viewDidLoad() {
+         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancel))
+       
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
         showPinOnMap()
@@ -34,7 +36,9 @@ class PostLinkViewController: UIViewController {
         geocoder.geocodeAddressString(mapString!) { (placemarks, error) in
             if error != nil {
                 self.activityIndicator.stopAnimating()
+                self.navigationController!.popViewController(animated: true)
                 self.errorAlertView(errorMessage: "had trouble geocoding the location")
+                
             }
             if let placemarks = placemarks {
                 for cLPlacemark in placemarks {
@@ -49,32 +53,37 @@ class PostLinkViewController: UIViewController {
             }
         }
     }
-        func getObjectID() {
-       
-        ParseClient.sharedInstance().getUserStudentLocation() { (studentLocation, error) in
-            performUIUpdatesOnMain {
-             print("objectID func")
-                if error != nil {
-                    print("had an error")
-                    return
-                }
-                print(studentLocation as? String!)
-                let userDict = studentLocation![0]
-                guard let objectID = userDict[ParseClient.JSONResponseKeys.ObjectID] as? String else {
-                    print("couldn't find user's objecrtID")
-                    return
-                }
-                StudentLocation.userInfo.objectId = objectID
-                print("your object id is \(objectID)")
-                print(StudentLocation.userInfo)
-        
-            }
-        }
-    }
+//        func getObjectID() {
+//       
+//        ParseClient.sharedInstance().getUserStudentLocation() { (studentLocation, error) in
+//            performUIUpdatesOnMain {
+//             print("objectID func")
+//                if error != nil {
+//                    print("had an error")
+//                    return
+//                }
+//                print(studentLocation as? String!)
+//                let userDict = studentLocation![0]
+//                guard let objectID = userDict[ParseClient.JSONResponseKeys.ObjectID] as? String else {
+//                    print("couldn't find user's objecrtID")
+//                    return
+//                }
+//                StudentLocation.userInfo.objectId = objectID
+//                print("your object id is \(objectID)")
+//                print(StudentLocation.userInfo)
+//        
+//            }
+//        }
+//    }
 
     
     @IBAction func addToMapPressed(_ sender: Any) {
         StudentLocation.userInfo.link = linkTextField.text
+        let url = URL(string: linkTextField.text!)
+        if !UIApplication.shared.canOpenURL(url!) {
+            errorAlertView(errorMessage: "That's not a URL that safari can open.")
+            return
+        }
         
         if let uniqueKey = StudentLocation.userInfo.uniqueKey,
         let firstName = StudentLocation.userInfo.firstName,
@@ -105,8 +114,9 @@ class PostLinkViewController: UIViewController {
                 }
             }
         }
-        
-        
-        
+    }
+    
+    func cancel(){
+        self.navigationController!.popToRootViewController(animated: true)
     }
 }
