@@ -20,14 +20,12 @@ extension ParseClient {
         static let AppID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
         static let AppIDHeaderField = "X-Parse-Application-Id"
         //MARK: URLs
-        static let ApiScheme = "https"
-        static let ApiHost = "parse.udacity.com"
-        static let ApiPath = "/parse/classes"
+        static let parseUrl = "https://parse.udacity.com/parse/classes"
     }
     
     //MARK: Methods
     struct Methods {
-        static let StudentLocation = "/StudentLocation"
+        static let StudentLocation = "/StudentLocation/"
         //MARK: Account
         //MARK: Authentication
         //MARK: Search
@@ -42,10 +40,10 @@ extension ParseClient {
     
     //MARK: Parameter Keys
     struct ParameterKeys {
-        static let Limit = "limit"
-        static let Skip = "skip"
-        static let Order = "order"
-        static let Where = "where"
+        static let Limit = "limit="
+        static let Skip = "skip="
+        static let Order = "order="
+        static let Where = "where="
         
     }
     

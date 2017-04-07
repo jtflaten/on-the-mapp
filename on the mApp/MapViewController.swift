@@ -38,9 +38,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         print("its\(stundentDicts.count)")
         
         for dictionary in stundentDicts {
+            if dictionary.lat == nil || dictionary.long == nil || dictionary.link == nil {
+                continue
+            }
             let lat = CLLocationDegrees(dictionary.lat!)
             let long = CLLocationDegrees(dictionary.long!)
             let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            
             let name = dictionary.firstName
             let link = dictionary.link!
             
@@ -97,6 +101,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         viewWillAppear(false)
     }
     func logout() {
+        UdacityClient.sharedInstance().logoutFromUdacity()
         dismiss(animated: true, completion: nil)
     }
 

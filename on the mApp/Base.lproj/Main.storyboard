@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cjt-JW-UGn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ep4-wF-rKf">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -123,10 +123,16 @@
                                 <rect key="frame" x="114" y="361" width="128" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Find on Map"/>
+                                <connections>
+                                    <action selector="findButtonPressed:" destination="RNH-Sn-HD7" eventType="touchUpInside" id="vQa-3D-92M"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="locationTextField" destination="uqD-h7-7yY" id="ubn-lI-GfI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XWj-Gb-kmc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -135,7 +141,7 @@
         <!--Post Link View Controller-->
         <scene sceneID="Dbq-GB-F7r">
             <objects>
-                <viewController id="bDk-oH-I8t" customClass="PostLinkViewController" customModule="on_the_mApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostLinkViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bDk-oH-I8t" customClass="PostLinkViewController" customModule="on_the_mApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="s9g-mV-yn7"/>
                         <viewControllerLayoutGuide type="bottom" id="LHU-L4-yWF"/>
@@ -143,12 +149,50 @@
                     <view key="view" contentMode="scaleToFill" id="z1N-8s-vem">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What are you studiying?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uTp-rw-ayq">
+                                <rect key="frame" x="86" y="390" width="202" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WMI-Zi-rtF">
+                                <rect key="frame" x="58" y="468" width="283" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hP7-NT-z6O">
+                                <rect key="frame" x="34" y="56" width="306" height="289"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="pAa-pJ-pZx">
+                                <rect key="frame" x="177" y="190" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BZz-6J-IOe">
+                                <rect key="frame" x="164" y="546" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="addToMapPressed:" destination="bDk-oH-I8t" eventType="touchUpInside" id="uob-bg-BWt"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="pAa-pJ-pZx" id="oze-PO-Wgz"/>
+                        <outlet property="addButton" destination="BZz-6J-IOe" id="EbR-Sh-uEi"/>
+                        <outlet property="linkTextField" destination="WMI-Zi-rtF" id="lXt-nQ-hEQ"/>
+                        <outlet property="locationMapView" destination="hP7-NT-z6O" id="EeI-1Y-3zB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sdv-OW-TAA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2572" y="60"/>
+            <point key="canvasLocation" x="2572" y="59.820089955022496"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="whm-Yx-NIe">

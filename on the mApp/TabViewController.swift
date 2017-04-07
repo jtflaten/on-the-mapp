@@ -14,6 +14,7 @@ class MapTabViewController: UITabBarController {
         super.viewDidLoad()
       
         getStudentLocations()
+        getUserInfo()
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -40,6 +41,18 @@ class MapTabViewController: UITabBarController {
             if let theMap = self.viewControllers?[0] as? MapViewController {
                 theMap.loadStudents(studentInfo: StudentLocation.studentLocationArray)
             }
+        }
+    }
+    
+    func getUserInfo () {
+        UdacityClient.sharedInstance().getUserInfo() { (success, firstName, lastName, error) in
+            guard (error == nil) else {
+                self.errorAlertView(errorMessage: "couldn't get user's name")
+                return
+            }
+            StudentLocation.userInfo.firstName = firstName
+            StudentLocation.userInfo.lastName = lastName
+    
         }
     }
 

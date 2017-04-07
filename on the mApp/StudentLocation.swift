@@ -9,15 +9,15 @@
 import Foundation
 
 struct StudentLocation{
-    let uniqueKey: String?
-    let firstName: String?
-    let lastName: String?
-    let lat: Double?
-    let long: Double?
-    let link: String?
-    let mapString: String?
-    let objectId: String?
-    let updatedAt: String?
+    var uniqueKey: String?
+    var firstName: String?
+    var lastName: String?
+    var lat: Double?
+    var long: Double?
+    var link: String?
+    var mapString: String?
+    var objectId: String?
+    var updatedAt: String?
     
     init(dictionary: [String:AnyObject]) {
         uniqueKey = dictionary[ParseClient.JSONResponseKeys.UniqueKey] as? String
@@ -42,4 +42,5 @@ struct StudentLocation{
     }
     
     static var studentLocationArray: [StudentLocation] = []
+    static var userInfo = StudentLocation(dictionary: [:])
 }

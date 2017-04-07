@@ -7,9 +7,106 @@
 //
 
 import UIKit
+import MapKit
+import Foundation
 
 class PostLinkViewController: UIViewController {
+    
+    
+    @IBOutlet weak var locationMapView: MKMapView!
+    @IBOutlet weak var linkTextField: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var addButton: UIButton!
+  
+    
+    var mapString: String?
+ 
+    var geocoder = CLGeocoder()
+    
     override func viewDidLoad() {
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
+        showPinOnMap()
+        print(StudentLocation.userInfo)
+    }
+    
+    func showPinOnMap() {
+        geocoder.geocodeAddressString(mapString!) { (placemarks, error) in
+            if error != nil {
+                self.activityIndicator.stopAnimating()
+                self.errorAlertView(errorMessage: "had trouble geocoding the location")
+            }
+            if let placemarks = placemarks {
+                for cLPlacemark in placemarks {
+                    StudentLocation.userInfo.lat = cLPlacemark.location?.coordinate.latitude
+                    StudentLocation.userInfo.long = cLPlacemark.location?.coordinate.longitude
+                    StudentLocation.userInfo.mapString = self.mapString!
+                    
+                    let mapPlacemark = MKPlacemark(placemark: cLPlacemark)
+                    self.locationMapView.addAnnotation(mapPlacemark)
+                    self.activityIndicator.stopAnimating()
+                }
+            }
+        }
+    }
+        func getObjectID() {
+       
+        ParseClient.sharedInstance().getUserStudentLocation() { (studentLocation, error) in
+            performUIUpdatesOnMain {
+             print("objectID func")
+                if error != nil {
+                    print("had an error")
+                    return
+                }
+                print(studentLocation as? String!)
+                let userDict = studentLocation![0]
+                guard let objectID = userDict[ParseClient.JSONResponseKeys.ObjectID] as? String else {
+                    print("couldn't find user's objecrtID")
+                    return
+                }
+                StudentLocation.userInfo.objectId = objectID
+                print("your object id is \(objectID)")
+                print(StudentLocation.userInfo)
+        
+            }
+        }
+    }
+
+    
+    @IBAction func addToMapPressed(_ sender: Any) {
+        StudentLocation.userInfo.link = linkTextField.text
+        
+        if let uniqueKey = StudentLocation.userInfo.uniqueKey,
+        let firstName = StudentLocation.userInfo.firstName,
+        let lastName = StudentLocation.userInfo.lastName,
+        let latitude = StudentLocation.userInfo.lat,
+        let longitude = StudentLocation.userInfo.long,
+        let mediaURL = StudentLocation.userInfo.link,
+        let mapString = StudentLocation.userInfo.mapString {
+        
+            let jsonForRequest = "{\"uniqueKey\":\"\(uniqueKey)\",\"firstName\":\"\(firstName)\",\"lastName\":\"\(lastName)\",\"mapString\":\"\(mapString)\",\"mediaURL\":\"\(mediaURL)\",\"latitude\": \(latitude),\"longitude\":\(longitude)}"
+            
+            if StudentLocation.userInfo.objectId == nil {
+                ParseClient.sharedInstance().postToParse(userLocation: jsonForRequest) {(objectId, error) in
+                    performUIUpdatesOnMain {
+
+                        if error == nil {
+                                self.navigationController!.popToRootViewController(animated: true)
+                        }
+                    }
+                }
+            } else {
+                ParseClient.sharedInstance().putToParse(userLocation: jsonForRequest) {( updatedAt, error) in
+                    performUIUpdatesOnMain {
+                        if error == nil {
+                            self.navigationController!.popToRootViewController(animated: true)
+                        }
+                    }
+                }
+            }
+        }
+        
+        
         
     }
 }

@@ -20,11 +20,11 @@ class TableViewController: UIViewController {
         super.viewDidLoad()
         
         //create the NavBar
-        parent!.navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(image: #imageLiteral(resourceName: "icon_addpin"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(pushToPostInfo)),
-            UIBarButtonItem(image: #imageLiteral(resourceName: "icon_refresh"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(refreshData))
-        ]
-        parent!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.plain, target: self, action: #selector(logout))
+//        parent!.navigationItem.rightBarButtonItems = [
+//            UIBarButtonItem(image: #imageLiteral(resourceName: "icon_addpin"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(pushToPostInfo)),
+//            UIBarButtonItem(image: #imageLiteral(resourceName: "icon_refresh"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(refreshData))
+//        ]
+//        parent!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.plain, target: self, action: #selector(logout))
     }
     override func viewWillAppear(_ animated: Bool) {
         // Do any additional setup after loading the view, typically from a nib.
@@ -35,6 +35,7 @@ class TableViewController: UIViewController {
         self.tableView.reloadData()
         print("tableViewAfter\(self.students.count)")
         print("arrayAfter\(StudentLocation.studentLocationArray.count)")
+        print("your name is \(StudentLocation.userInfo.firstName!)\(StudentLocation.userInfo.lastName!)")
     }
 }
 
@@ -77,15 +78,16 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
         print(student.link!)
     }
     
-    func pushToPostInfo()   {
-        let postViewController = storyboard!.instantiateViewController(withIdentifier: "PostInfoViewController") as! PostInfoViewController
-        present(postViewController, animated: true, completion: nil)
-    }
-    func refreshData () {
-        viewWillAppear(false)
-    }
-    func logout() {
-        dismiss(animated: true, completion: nil)
-    }
+//    func pushToPostInfo()   {
+//        let postViewController = storyboard!.instantiateViewController(withIdentifier: "PostInfoViewController") as! PostInfoViewController
+//        present(postViewController, animated: true, completion: nil)
+//    }
+//    func refreshData () {
+//        viewWillAppear(false)
+//    }
+//    func logout() {
+//        UdacityClient.sharedInstance().logoutFromUdacity()
+//       // dismiss(animated: true, completion: nil)
+//    }
 }
 

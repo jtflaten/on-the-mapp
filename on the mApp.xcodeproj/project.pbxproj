@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		588C73B41E8C159C00F2D508 /* PostLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C73B31E8C159C00F2D508 /* PostLinkViewController.swift */; };
+		588C73B61E8C626300F2D508 /* errorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C73B51E8C626300F2D508 /* errorAlertView.swift */; };
 		589BD2AA1E8AD618009B1D47 /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589BD2A91E8AD618009B1D47 /* PostInfoViewController.swift */; };
 		58B54B341E80928900362B2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B54B331E80928900362B2B /* AppDelegate.swift */; };
 		58B54B361E80928900362B2B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B54B351E80928900362B2B /* MapViewController.swift */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		588C73B31E8C159C00F2D508 /* PostLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostLinkViewController.swift; path = ../PostLinkViewController.swift; sourceTree = "<group>"; };
+		588C73B51E8C626300F2D508 /* errorAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = errorAlertView.swift; sourceTree = "<group>"; };
 		589BD2A91E8AD618009B1D47 /* PostInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostInfoViewController.swift; path = ../PostInfoViewController.swift; sourceTree = "<group>"; };
 		58B54B301E80928900362B2B /* on the mApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "on the mApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		58B54B331E80928900362B2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				58B54B3C1E80928900362B2B /* Assets.xcassets */,
 				58B54B3E1E80928900362B2B /* LaunchScreen.storyboard */,
 				58B54B411E80928900362B2B /* Info.plist */,
+				588C73B51E8C626300F2D508 /* errorAlertView.swift */,
 				58B54B721E82077C00362B2B /* GCDBlackBox.swift */,
 			);
 			path = "on the mApp";
@@ -168,9 +171,9 @@
 			children = (
 				58B54B351E80928900362B2B /* MapViewController.swift */,
 				58B54B371E80928900362B2B /* TableViewController.swift */,
-				589BD2A91E8AD618009B1D47 /* PostInfoViewController.swift */,
 				58B54B6E1E81939600362B2B /* LoginViewController.swift */,
 				58B54B761E85739E00362B2B /* TabViewController.swift */,
+				589BD2A91E8AD618009B1D47 /* PostInfoViewController.swift */,
 				588C73B31E8C159C00F2D508 /* PostLinkViewController.swift */,
 			);
 			name = Controller;
@@ -348,6 +351,7 @@
 				58B54B6A1E816DEB00362B2B /* ParseClient.swift in Sources */,
 				58B54B711E81A8F400362B2B /* UdacityClient.swift in Sources */,
 				58B54B771E85739E00362B2B /* TabViewController.swift in Sources */,
+				588C73B61E8C626300F2D508 /* errorAlertView.swift in Sources */,
 				588C73B41E8C159C00F2D508 /* PostLinkViewController.swift in Sources */,
 				58B54B361E80928900362B2B /* MapViewController.swift in Sources */,
 			);
