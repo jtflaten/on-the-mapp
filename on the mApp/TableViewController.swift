@@ -10,7 +10,7 @@ import UIKit
 
 class TableViewController: UIViewController {
     
-    var students: [StudentLocation] = []
+
 
     @IBOutlet var tableView: UITableView!
   //  @IBOutlet weak var studentTableView: UITableView!
@@ -24,7 +24,7 @@ class TableViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         super.viewWillAppear(animated)
 
-        self.students = StudentLocation.studentLocationArray
+
         self.tableView.reloadData()
 
     }
@@ -39,7 +39,7 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
     
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let student = students[indexPath.row]
+        let student = StudentLocation.studentLocationArray[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "StudentTableViewCell")!
         
         if let firstName = student.firstName, let secondName = student.lastName {
