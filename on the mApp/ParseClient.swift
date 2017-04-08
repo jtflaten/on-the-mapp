@@ -5,6 +5,8 @@
 //  Created by Jake Flaten on 3/21/17.
 //  Copyright © 2017 Break List. All rights reserved.
 //
+// Some of the code in this project is based upon code from Udacity's TheMovieManager app 
+// When i got stuck with some of the networking tasks, I also looked at Christine Chang's repo for this same project. https://github.com/xtnchang/On-the-Map
 
 import Foundation
 

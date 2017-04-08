@@ -99,7 +99,7 @@
 		58B54B271E80928900362B2B = {
 			isa = PBXGroup;
 			children = (
-				58B54B321E80928900362B2B /* on the mApp */,
+				58B54B321E80928900362B2B /* on-the-mApp */,
 				58B54B491E80928900362B2B /* on the mAppTests */,
 				58B54B541E80928900362B2B /* on the mAppUITests */,
 				58B54B311E80928900362B2B /* Products */,
@@ -116,7 +116,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		58B54B321E80928900362B2B /* on the mApp */ = {
+		58B54B321E80928900362B2B /* on-the-mApp */ = {
 			isa = PBXGroup;
 			children = (
 				58B54B331E80928900362B2B /* AppDelegate.swift */,
@@ -130,6 +130,7 @@
 				588C73B51E8C626300F2D508 /* errorAlertView.swift */,
 				58B54B721E82077C00362B2B /* GCDBlackBox.swift */,
 			);
+			name = "on-the-mApp";
 			path = "on the mApp";
 			sourceTree = "<group>";
 		};
