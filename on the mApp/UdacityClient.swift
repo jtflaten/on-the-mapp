@@ -90,7 +90,6 @@ class UdacityClient: NSObject {
                 performUIUpdatesOnMain {
                     hostViewController.completeLogin()
                     StudentLocation.userInfo.uniqueKey = (accountDict["key"] as? String)
-                    print(" user ID is \(StudentLocation.userInfo.uniqueKey ?? "non-existant")")
                 }
             }else {
                 displayError("couldn't find 'id'")
@@ -119,7 +118,7 @@ class UdacityClient: NSObject {
             
             /* GUARD: Was there an error? */
             guard (error == nil) else {
-                sendError(error: "There was an error with your request: \(error)")
+                sendError(error: "There was an error with your request: \(String(describing: error))")
                 return
             }
             
@@ -140,7 +139,7 @@ class UdacityClient: NSObject {
         
         }
         task.resume()
-        print(request)
+       
         return task
        
     }
@@ -154,7 +153,7 @@ class UdacityClient: NSObject {
             }
             
             guard (error == nil) else {
-                sendError(error: "There was an error with your request: \(error)")
+                sendError(error: "There was an error with your request: \(String(describing: error))")
                 return
             }
             
@@ -197,7 +196,7 @@ class UdacityClient: NSObject {
             }
             let range = Range(5 ..< data!.count)
             let newData = data?.subdata(in: range) /* subset response data! */
-            print(NSString(data: newData!, encoding: String.Encoding.utf8.rawValue)!)
+        
         }
         task.resume()
     }

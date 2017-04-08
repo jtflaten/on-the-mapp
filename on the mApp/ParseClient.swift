@@ -23,7 +23,7 @@ class ParseClient: NSObject {
         if let parameters = parameters {
             urlString = (Constants.parseUrl + method + parameters)
         }
-        print("URL= \(urlString)")
+      
         let url = NSURL(string: urlString)
         /* 2/3. Build the URL, Configure the request */
         let request = NSMutableURLRequest(url: url! as URL)
@@ -160,16 +160,10 @@ class ParseClient: NSObject {
             
             /* GUARD: Was there an error? */
             guard (error == nil) else {
-                sendError("There was an error with your request: \(error)")
+                sendError("There was an error with your request: \(String(describing: error))")
                 return
             }
             
-            /* GUARD: Did we get a successful 2XX response? */
-            //            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-            //                sendError("Your request returned a status code other than 2xx!")
-            //                print("response: \(response as? String!)")
-            //                return
-            //            }
             
             /* GUARD: Was there any data returned? */
             guard let data = data else {
@@ -178,8 +172,8 @@ class ParseClient: NSObject {
             }
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
-            print(request)
-            //        print(data as! String)
+         
+        
             self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForPOST)
         }
         
@@ -194,7 +188,6 @@ class ParseClient: NSObject {
     
     func postToParse(userLocation: String, completionHandlerForPost: @escaping (_ objectID: String?, _ error: NSError?) -> Void) {
         let _ = taskForPOSTMethod(Methods.StudentLocation, jsonBody: userLocation) { (parsedResponse, error) in
-          //   print(parsedResponse! as! String)
             func sendError(error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey: error]
@@ -210,12 +203,12 @@ class ParseClient: NSObject {
             }
             guard let objectID = parsedResponse?[ParseClient.JSONResponseKeys.ObjectID]  as! String? else {
                 sendError(error: "no object ID found in the post response")
-                print(String(describing: parsedResponse))
+
                 return
             }
             StudentLocation.userInfo.objectId = objectID
             completionHandlerForPost(objectID , nil)
-            //print(parsedResponse!) as! String
+    
         }
     }
     

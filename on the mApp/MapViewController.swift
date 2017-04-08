@@ -36,8 +36,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         var mapAnnotations = [MKPointAnnotation]()
         let stundentDicts = studentInfo
         
-        print("its\(stundentDicts.count)")
-        
         for dictionary in stundentDicts {
             if dictionary.lat == nil || dictionary.long == nil || dictionary.link == nil {
                 continue
@@ -59,7 +57,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         performUIUpdatesOnMain {
             
             self.mapView.addAnnotations(mapAnnotations)
-            print("map anntations \(mapAnnotations.count)")
         
             }
     }

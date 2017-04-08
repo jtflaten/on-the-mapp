@@ -29,7 +29,7 @@ class PostLinkViewController: UIViewController {
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
         showPinOnMap()
-        print(StudentLocation.userInfo)
+
     }
     
     func showPinOnMap() {
@@ -53,28 +53,7 @@ class PostLinkViewController: UIViewController {
             }
         }
     }
-//        func getObjectID() {
-//       
-//        ParseClient.sharedInstance().getUserStudentLocation() { (studentLocation, error) in
-//            performUIUpdatesOnMain {
-//             print("objectID func")
-//                if error != nil {
-//                    print("had an error")
-//                    return
-//                }
-//                print(studentLocation as? String!)
-//                let userDict = studentLocation![0]
-//                guard let objectID = userDict[ParseClient.JSONResponseKeys.ObjectID] as? String else {
-//                    print("couldn't find user's objecrtID")
-//                    return
-//                }
-//                StudentLocation.userInfo.objectId = objectID
-//                print("your object id is \(objectID)")
-//                print(StudentLocation.userInfo)
-//        
-//            }
-//        }
-//    }
+
 
     
     @IBAction func addToMapPressed(_ sender: Any) {
