@@ -12,21 +12,17 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
-   // var students: [StudentLocation] = []
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        parent!.navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(image: #imageLiteral(resourceName: "icon_addpin"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(pushToPostInfo)),
-            UIBarButtonItem(image: #imageLiteral(resourceName: "icon_refresh"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(refreshData))
-        ]
-        parent!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.plain, target: self, action: #selector(logout))
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
     // Do any additional setup after loading the view, typically from a nib.
     super.viewWillAppear(true)
-    //self.students = StudentLocation.studentLocationArray
+  
     loadStudents(studentInfo: StudentLocation.studentLocationArray)
     
     }
@@ -37,14 +33,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let stundentDicts = studentInfo
         
         for dictionary in stundentDicts {
-            if dictionary.lat == nil || dictionary.long == nil || dictionary.link == nil {
+            if dictionary.lat == nil || dictionary.long == nil || dictionary.link == nil || dictionary.firstName == nil || dictionary.lastName == nil {
                 continue
             }
             let lat = CLLocationDegrees(dictionary.lat!)
             let long = CLLocationDegrees(dictionary.long!)
             let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
             
-            let name = dictionary.firstName
+            let name = dictionary.firstName! + " " + dictionary.lastName!
             let link = dictionary.link!
             
             let annotation = MKPointAnnotation()
@@ -95,17 +91,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
 
    
-    func pushToPostInfo()   {
-        let postViewController = storyboard!.instantiateViewController(withIdentifier: "PostInfoViewController") as! PostInfoViewController
-        self.navigationController!.pushViewController(postViewController, animated: true)
-    }
-    func refreshData () {
-        viewWillAppear(false)
-    }
-    func logout() {
-        UdacityClient.sharedInstance().logoutFromUdacity()
-        dismiss(animated: true, completion: nil)
-    }
+
 
 
     override func didReceiveMemoryWarning() {

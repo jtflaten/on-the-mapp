@@ -48,6 +48,13 @@ class PostLinkViewController: UIViewController {
                     
                     let mapPlacemark = MKPlacemark(placemark: cLPlacemark)
                     self.locationMapView.addAnnotation(mapPlacemark)
+                   
+                    
+                    self.locationMapView.centerCoordinate = (mapPlacemark.location?.coordinate)!
+                    let coordinateSpan = MKCoordinateSpanMake(0.65,0.65)
+                    let coordinateRegion = MKCoordinateRegion(center: (mapPlacemark.location?.coordinate)!, span: coordinateSpan)
+                    self.locationMapView.setRegion(coordinateRegion, animated: true)
+                    
                     self.activityIndicator.stopAnimating()
                 }
             }
@@ -79,8 +86,11 @@ class PostLinkViewController: UIViewController {
                     performUIUpdatesOnMain {
 
                         if error == nil {
-                                self.navigationController!.popToRootViewController(animated: true)
+                                self.parent!.dismiss(animated: true)
+                        } else {
+                            self.errorAlertView(errorMessage: "attempt failed. Can't get you on the map")
                         }
+                        
                     }
                 }
             } else {
@@ -88,6 +98,8 @@ class PostLinkViewController: UIViewController {
                     performUIUpdatesOnMain {
                         if error == nil {
                             self.navigationController!.popToRootViewController(animated: true)
+                        } else {
+                            self.errorAlertView(errorMessage: "attempt failed. Can't update your place on the map")
                         }
                     }
                 }

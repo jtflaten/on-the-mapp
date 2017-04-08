@@ -71,7 +71,7 @@ class ParseClient: NSObject {
     //   MARK: GET methods
     
     func getStudentLocations(_ completionHandlerForStudentLocations: @escaping (_ result: [StudentLocation]?, _ error: NSError?) -> Void){
-        let parameters = "?\(ParseClient.ParameterKeys.Limit)100"
+        let parameters = "?\(ParseClient.ParameterKeys.Limit)100&\(ParameterKeys.Order)-updatedAt"
         let method = String(Methods.StudentLocation)
         
         let _ = taskForGETMethod(method!, parameters: parameters ) { (results, error) in

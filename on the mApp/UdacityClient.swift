@@ -29,6 +29,14 @@ class UdacityClient: NSObject {
         badCredentialsAlert.message = "There seems to be something wrong with your username or password"
         badCredentialsAlert.addAction(dismissAction)
         
+        let otherFailureAlert = UIAlertController()
+        let dismissFaiure = UIAlertAction(title: "ok", style: UIAlertActionStyle.default) { action in
+            otherFailureAlert.dismiss(animated: true, completion: nil)
+        }
+        otherFailureAlert.title = "Uh-Oh"
+        otherFailureAlert.message = "There was a problem connecting"
+        otherFailureAlert.addAction(dismissFaiure)
+        
         let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/session")!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -40,7 +48,7 @@ class UdacityClient: NSObject {
             func displayError(_ error: String) {
                 performUIUpdatesOnMain {
                     print(error)
-                    hostViewController.present(badCredentialsAlert, animated: true, completion: nil)
+                    hostViewController.present(otherFailureAlert, animated: true, completion: nil)
                 }
             }
             /* GUARD: Was there an error? */
@@ -49,8 +57,12 @@ class UdacityClient: NSObject {
                 return
             }
             /* GUARD: Did we get a successful 2XX response? */
+            if (response as? HTTPURLResponse)?.statusCode == 400 {
+                hostViewController.present(badCredentialsAlert, animated: true, completion: nil)
+            }
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 displayError("Your request returned a status code other than 2xx!")
+                print(response)
                 return
             }
             /* GUARD: Was there any data returned? */
@@ -119,6 +131,7 @@ class UdacityClient: NSObject {
             /* GUARD: Was there an error? */
             guard (error == nil) else {
                 sendError(error: "There was an error with your request: \(String(describing: error))")
+                
                 return
             }
             

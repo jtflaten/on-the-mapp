@@ -28,6 +28,6 @@ class PostInfoViewController: UIViewController {
     }
     
     func cancel(){
-        self.navigationController!.popToRootViewController(animated: true)
+        parent!.dismiss(animated: true)
     }
 }

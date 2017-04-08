@@ -76,7 +76,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mri-Yb-BBF" id="j8i-pB-MNO">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -96,6 +96,22 @@
             </objects>
             <point key="canvasLocation" x="750" y="389"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="SIK-GC-2DE">
+            <objects>
+                <navigationController storyboardIdentifier="postNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="y7o-pw-zU4" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1ZP-5h-SqH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="RNH-Sn-HD7" kind="relationship" relationship="rootViewController" id="eah-Wb-J4y"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HLP-vI-N2E" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1615" y="63"/>
+        </scene>
         <!--Post Info View Controller-->
         <scene sceneID="jcI-LD-89N">
             <objects>
@@ -109,13 +125,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where are you?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Muc-xs-iBK">
-                                <rect key="frame" x="131" y="70" width="114" height="23"/>
+                                <rect key="frame" x="131" y="114" width="114" height="23"/>
                                 <fontDescription key="fontDescription" name="KohinoorDevanagari-Regular" family="Kohinoor Devanagari" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uqD-h7-7yY">
-                                <rect key="frame" x="25" y="173" width="325" height="30"/>
+                                <rect key="frame" x="25" y="217" width="325" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -143,13 +159,14 @@
                             <constraint firstItem="506-nD-2h8" firstAttribute="trailing" secondItem="Muc-xs-iBK" secondAttribute="trailing" id="rkT-Xw-QWr"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="ICs-fU-I9r"/>
                     <connections>
                         <outlet property="locationTextField" destination="uqD-h7-7yY" id="ubn-lI-GfI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XWj-Gb-kmc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1696.8" y="62.518740629685162"/>
+            <point key="canvasLocation" x="2394" y="63"/>
         </scene>
         <!--Post Link View Controller-->
         <scene sceneID="Dbq-GB-F7r">
@@ -242,7 +259,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sdv-OW-TAA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2608.8000000000002" y="37.331334332833585"/>
+            <point key="canvasLocation" x="3132" y="63"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="whm-Yx-NIe">

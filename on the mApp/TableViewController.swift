@@ -32,7 +32,7 @@ class TableViewController: UIViewController {
 
 extension TableViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let studentsNumber = self.students.count
+        let studentsNumber = StudentLocation.studentLocationArray.count
         return studentsNumber
         
     }
@@ -54,7 +54,7 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let student = self.students[(indexPath as NSIndexPath).row]
+        let student = StudentLocation.studentLocationArray[(indexPath as NSIndexPath).row]
         if let url = URL(string: student.link!) {
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
