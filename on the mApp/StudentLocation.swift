@@ -43,4 +43,7 @@ struct StudentLocation{
     
     static var studentLocationArray: [StudentLocation] = []
     static var userInfo = StudentLocation(dictionary: [:])
+    
+ 
 }
+

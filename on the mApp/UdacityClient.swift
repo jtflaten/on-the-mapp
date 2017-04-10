@@ -26,7 +26,7 @@ class UdacityClient: NSObject {
             badCredentialsAlert.dismiss(animated: true, completion: nil)
         }
         badCredentialsAlert.title = "Uh-Oh"
-        badCredentialsAlert.message = "There seems to be something wrong with your username or password"
+        badCredentialsAlert.message = ""
         badCredentialsAlert.addAction(dismissAction)
         
         let otherFailureAlert = UIAlertController()
@@ -49,19 +49,20 @@ class UdacityClient: NSObject {
                 performUIUpdatesOnMain {
                     print(error)
                     hostViewController.present(otherFailureAlert, animated: true, completion: nil)
+                    hostViewController.activityIndicator.stopAnimating()
                 }
             }
             /* GUARD: Was there an error? */
             guard (error == nil) else {
                 displayError("There was an error with your request: \(String(describing: error))")
+                hostViewController.errorAlertView(errorMessage: error!.localizedDescription)
                 return
             }
             /* GUARD: Did we get a successful 2XX response? */
-            if (response as? HTTPURLResponse)?.statusCode == 400 {
-                hostViewController.present(badCredentialsAlert, animated: true, completion: nil)
-            }
+
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 displayError("Your request returned a status code other than 2xx!")
+                
                 print(response)
                 return
             }
@@ -105,6 +106,7 @@ class UdacityClient: NSObject {
                 }
             }else {
                 displayError("couldn't find 'id'")
+                
                 return
             }
             

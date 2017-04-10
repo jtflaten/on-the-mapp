@@ -21,11 +21,14 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     //MARK: life cycle
    
 
-   
+    override func viewDidAppear(_ animated: Bool) {
+        activityIndicator.hidesWhenStopped = true
+    }
 
 
     
@@ -38,13 +41,25 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func loginPressed(_ sender: Any) {
+        activityIndicator.startAnimating()
+        if (usernameTextField.text?.isEmpty)! || (passwordTextField.text?.isEmpty)! {
+            self.errorAlertView(errorMessage: "You must enter a username and a password")
+            activityIndicator.stopAnimating()
+            return
+        }
         UdacityClient.sharedInstance().loginThruUdacity(username: usernameTextField.text!, password: passwordTextField.text!, hostViewController: self)
+     
         
     //MARK: Login
     }
      func completeLogin() {
+        activityIndicator.stopAnimating()
         let controller = storyboard!.instantiateViewController(withIdentifier: "OnTheMapNavController") as! UINavigationController
         present(controller, animated: true, completion: nil)
         
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

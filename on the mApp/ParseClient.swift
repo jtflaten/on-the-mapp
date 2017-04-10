@@ -134,7 +134,7 @@ class ParseClient: NSObject {
     
     //MARK: POST
     
-    func taskForPOSTMethod(_ method: String, jsonBody: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForPOSTMethod(_ method: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         /* 1. set the parameters
          2. Build the URL
          3. Configure the request
@@ -146,6 +146,7 @@ class ParseClient: NSObject {
         let urlstring = Constants.parseUrl + method
         let url = URL(string: urlstring)
         let request = NSMutableURLRequest(url: url! )
+         let jsonBody = makeJsonForRequest()
         request.httpMethod = "POST"
         request.addValue(Constants.AppID, forHTTPHeaderField: Constants.AppIDHeaderField)
         request.addValue(Constants.ApiKey, forHTTPHeaderField: Constants.ApiKeyHeaderField)
@@ -188,8 +189,8 @@ class ParseClient: NSObject {
     
     //MARK: POST methods
     
-    func postToParse(userLocation: String, completionHandlerForPost: @escaping (_ objectID: String?, _ error: NSError?) -> Void) {
-        let _ = taskForPOSTMethod(Methods.StudentLocation, jsonBody: userLocation) { (parsedResponse, error) in
+    func postToParse(completionHandlerForPost: @escaping (_ objectID: String?, _ error: NSError?) -> Void) {
+        let _ = taskForPOSTMethod(Methods.StudentLocation) { (parsedResponse, error) in
             func sendError(error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey: error]
@@ -215,10 +216,11 @@ class ParseClient: NSObject {
     }
     
     //MARK: PUT
-    func taskForPUTMethod(method: String, parameter: String, jsonBody: String, completionHandlerForPUT: @escaping ( _ result: AnyObject?, _ error: NSError?) -> Void ) -> URLSessionDataTask {
+    func taskForPUTMethod(method: String, parameter: String, completionHandlerForPUT: @escaping ( _ result: AnyObject?, _ error: NSError?) -> Void ) -> URLSessionDataTask {
         let urlString = Constants.parseUrl + method + parameter
         let url = URL(string: urlString)
         let request = NSMutableURLRequest(url: url!)
+        let jsonBody = makeJsonForRequest()
         request.httpMethod = "PUT"
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
@@ -251,8 +253,8 @@ class ParseClient: NSObject {
     
     //MARK: PUT Method
     
-    func putToParse(userLocation: String, completionHandlerForPut: @escaping(_ updatedAt: String?, _ error: NSError?) -> Void) {
-        let _ = taskForPUTMethod(method: Methods.StudentLocation, parameter: StudentLocation.userInfo.objectId!, jsonBody: userLocation) { (parsedResponse, error) in
+    func putToParse(completionHandlerForPut: @escaping(_ updatedAt: String?, _ error: NSError?) -> Void) {
+        let _ = taskForPUTMethod(method: Methods.StudentLocation, parameter: StudentLocation.userInfo.objectId!) { (parsedResponse, error) in
             func sendError(_ error: String) {
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
@@ -283,6 +285,23 @@ class ParseClient: NSObject {
         }
         
         completionHandlerForConvertData(parsedResult, nil)
+    }
+    
+  
+    func makeJsonForRequest() -> String  {
+        var jsonForRequest = ""
+        if let uniqueKey = StudentLocation.userInfo.uniqueKey,
+            let firstName = StudentLocation.userInfo.firstName,
+            let lastName = StudentLocation.userInfo.lastName,
+            let latitude = StudentLocation.userInfo.lat,
+            let longitude = StudentLocation.userInfo.long,
+            let mediaURL = StudentLocation.userInfo.link,
+            let mapString = StudentLocation.userInfo.mapString {
+            
+            jsonForRequest = "{\"uniqueKey\":\"\(uniqueKey)\",\"firstName\":\"\(firstName)\",\"lastName\":\"\(lastName)\",\"mapString\":\"\(mapString)\",\"mediaURL\":\"\(mediaURL)\",\"latitude\": \(latitude),\"longitude\":\(longitude)}"
+            
+        }
+        return jsonForRequest
     }
     
    

@@ -71,18 +71,12 @@ class PostLinkViewController: UIViewController {
             return
         }
         
-        if let uniqueKey = StudentLocation.userInfo.uniqueKey,
-        let firstName = StudentLocation.userInfo.firstName,
-        let lastName = StudentLocation.userInfo.lastName,
-        let latitude = StudentLocation.userInfo.lat,
-        let longitude = StudentLocation.userInfo.long,
-        let mediaURL = StudentLocation.userInfo.link,
-        let mapString = StudentLocation.userInfo.mapString {
         
-            let jsonForRequest = "{\"uniqueKey\":\"\(uniqueKey)\",\"firstName\":\"\(firstName)\",\"lastName\":\"\(lastName)\",\"mapString\":\"\(mapString)\",\"mediaURL\":\"\(mediaURL)\",\"latitude\": \(latitude),\"longitude\":\(longitude)}"
-            
-            if StudentLocation.userInfo.objectId == nil {
-                ParseClient.sharedInstance().postToParse(userLocation: jsonForRequest) {(objectId, error) in
+        
+    //    let jsonForRequest = ParseClient.makeJsonForRequest()
+        
+        if StudentLocation.userInfo.objectId == nil {
+                ParseClient.sharedInstance().postToParse() {(objectId, error) in
                     performUIUpdatesOnMain {
 
                         if error == nil {
@@ -94,7 +88,7 @@ class PostLinkViewController: UIViewController {
                     }
                 }
             } else {
-                ParseClient.sharedInstance().putToParse(userLocation: jsonForRequest) {( updatedAt, error) in
+                ParseClient.sharedInstance().putToParse() {( updatedAt, error) in
                     performUIUpdatesOnMain {
                         if error == nil {
                             self.navigationController!.popToRootViewController(animated: true)
@@ -105,9 +99,13 @@ class PostLinkViewController: UIViewController {
                 }
             }
         }
-    }
+    
     
     func cancel(){
         self.navigationController!.popToRootViewController(animated: true)
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

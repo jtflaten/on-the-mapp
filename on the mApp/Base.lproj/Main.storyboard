@@ -135,6 +135,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="RNH-Sn-HD7" id="aqb-BJ-oab"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="506-nD-2h8">
                                 <rect key="frame" x="117" y="301" width="128" height="33"/>
@@ -180,74 +183,85 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Give me a URL with some interesting info:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uTp-rw-ayq">
-                                <rect key="frame" x="70" y="40" width="235" height="48"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="a3U-as-Yc6">
+                                <rect key="frame" x="44" y="40" width="287" height="104"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Lml-sr-ykq">
+                                        <rect key="frame" x="0.0" y="0.0" width="287" height="71"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Give me a URL with some interesting info:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uTp-rw-ayq">
+                                                <rect key="frame" x="0.0" y="0.0" width="287" height="21"/>
+                                                <fontDescription key="fontDescription" name="KohinoorDevanagari-Regular" family="Kohinoor Devanagari" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WMI-Zi-rtF">
+                                                <rect key="frame" x="0.0" y="21" width="287" height="50"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" enablesReturnKeyAutomatically="YES"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="bDk-oH-I8t" id="akR-bJ-cqL"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="286.5" id="OjL-Go-hx3"/>
+                                        </constraints>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="747" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BZz-6J-IOe">
+                                        <rect key="frame" x="75" y="71" width="137" height="33"/>
+                                        <fontDescription key="fontDescription" name="KohinoorDevanagari-Regular" family="Kohinoor Devanagari" pointSize="15"/>
+                                        <state key="normal" title="Get on the Map!"/>
+                                        <connections>
+                                            <action selector="addToMapPressed:" destination="bDk-oH-I8t" eventType="touchUpInside" id="uob-bg-BWt"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="DvH-c6-K6F"/>
+                                    <constraint firstItem="BZz-6J-IOe" firstAttribute="leading" secondItem="a3U-as-Yc6" secondAttribute="leading" constant="75" id="KVp-g5-viO"/>
+                                    <constraint firstItem="Lml-sr-ykq" firstAttribute="leading" secondItem="a3U-as-Yc6" secondAttribute="leading" id="all-aw-Jza"/>
+                                    <constraint firstAttribute="trailing" secondItem="BZz-6J-IOe" secondAttribute="trailing" constant="75" id="niw-zQ-258"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="KohinoorDevanagari-Regular" family="Kohinoor Devanagari" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WMI-Zi-rtF">
-                                <rect key="frame" x="79" y="96" width="217" height="30"/>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="vbR-LN-Fph">
+                                <rect key="frame" x="18" y="237" width="339" height="389"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="if this doesn't seem like the right location, pease go back and be more specific with your search." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="H28-vd-dVX">
+                                        <rect key="frame" x="33" y="0.0" width="273" height="100"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" notEnabled="YES"/>
+                                        </accessibility>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="jg0-YS-Spy"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="KohinoorDevanagari-Regular" family="Kohinoor Devanagari" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hP7-NT-z6O">
+                                        <rect key="frame" x="0.0" y="100" width="339" height="289"/>
+                                    </mapView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="217" id="gK7-hS-8hA"/>
+                                    <constraint firstItem="hP7-NT-z6O" firstAttribute="leading" secondItem="vbR-LN-Fph" secondAttribute="leading" id="i7I-VS-r0c"/>
+                                    <constraint firstItem="H28-vd-dVX" firstAttribute="leading" secondItem="vbR-LN-Fph" secondAttribute="leading" constant="33" id="kfo-2b-i61"/>
                                 </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" enablesReturnKeyAutomatically="YES"/>
-                            </textField>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hP7-NT-z6O">
-                                <rect key="frame" x="18" y="325" width="339" height="289"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="289" id="Bg4-ux-76z"/>
-                                </constraints>
-                            </mapView>
+                            </stackView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="pAa-pJ-pZx">
-                                <rect key="frame" x="178" y="459" width="20" height="20"/>
+                                <rect key="frame" x="177" y="471.5" width="20" height="20"/>
                             </activityIndicatorView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="if this doesn't seem like the right location, pease go back and be more specific with your search." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="H28-vd-dVX">
-                                <rect key="frame" x="51" y="217" width="273" height="100"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" notEnabled="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="gha-Ny-uR7"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="KohinoorDevanagari-Regular" family="Kohinoor Devanagari" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="747" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BZz-6J-IOe">
-                                <rect key="frame" x="133" y="173" width="110" height="33"/>
-                                <fontDescription key="fontDescription" name="KohinoorDevanagari-Regular" family="Kohinoor Devanagari" pointSize="15"/>
-                                <state key="normal" title="Get on the Map!"/>
-                                <connections>
-                                    <action selector="addToMapPressed:" destination="bDk-oH-I8t" eventType="touchUpInside" id="uob-bg-BWt"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="uTp-rw-ayq" firstAttribute="centerX" secondItem="hP7-NT-z6O" secondAttribute="centerX" id="39i-Va-2cy"/>
-                            <constraint firstItem="hP7-NT-z6O" firstAttribute="top" secondItem="H28-vd-dVX" secondAttribute="bottom" constant="8" id="9cA-QO-qea"/>
-                            <constraint firstItem="hP7-NT-z6O" firstAttribute="leading" secondItem="z1N-8s-vem" secondAttribute="leadingMargin" constant="2" id="AaT-Zp-exe"/>
-                            <constraint firstItem="WMI-Zi-rtF" firstAttribute="top" secondItem="uTp-rw-ayq" secondAttribute="bottom" constant="8" symbolic="YES" id="DZy-j2-aQT"/>
-                            <constraint firstItem="H28-vd-dVX" firstAttribute="centerX" secondItem="z1N-8s-vem" secondAttribute="centerX" id="JKd-x1-Iki"/>
-                            <constraint firstItem="hP7-NT-z6O" firstAttribute="centerX" secondItem="z1N-8s-vem" secondAttribute="centerX" id="Rel-xe-6nj"/>
-                            <constraint firstItem="H28-vd-dVX" firstAttribute="leading" secondItem="z1N-8s-vem" secondAttribute="leadingMargin" constant="35" id="S5e-ec-4e0"/>
-                            <constraint firstItem="BZz-6J-IOe" firstAttribute="centerX" secondItem="z1N-8s-vem" secondAttribute="centerX" id="TrE-K8-B4I"/>
-                            <constraint firstItem="uTp-rw-ayq" firstAttribute="leading" secondItem="z1N-8s-vem" secondAttribute="leadingMargin" constant="54" id="UTD-VY-c0o"/>
-                            <constraint firstItem="LHU-L4-yWF" firstAttribute="top" secondItem="hP7-NT-z6O" secondAttribute="bottom" constant="53" id="byP-Fi-td3"/>
-                            <constraint firstItem="uTp-rw-ayq" firstAttribute="centerX" secondItem="pAa-pJ-pZx" secondAttribute="centerX" id="fVk-ZE-hce"/>
-                            <constraint firstItem="uTp-rw-ayq" firstAttribute="centerX" secondItem="z1N-8s-vem" secondAttribute="centerX" id="fs1-ge-eQm"/>
-                            <constraint firstItem="uTp-rw-ayq" firstAttribute="top" secondItem="s9g-mV-yn7" secondAttribute="bottom" constant="20" id="h9f-Ke-5Ia"/>
-                            <constraint firstItem="hP7-NT-z6O" firstAttribute="centerX" secondItem="H28-vd-dVX" secondAttribute="centerX" id="mIN-sG-zZq"/>
-                            <constraint firstItem="hP7-NT-z6O" firstAttribute="centerY" secondItem="pAa-pJ-pZx" secondAttribute="centerY" id="qgs-sE-hYl"/>
-                            <constraint firstItem="uTp-rw-ayq" firstAttribute="centerX" secondItem="H28-vd-dVX" secondAttribute="centerX" id="tuq-9s-g0Z"/>
-                            <constraint firstItem="H28-vd-dVX" firstAttribute="top" secondItem="BZz-6J-IOe" secondAttribute="bottom" constant="11" id="ucE-8D-kWO"/>
-                            <constraint firstItem="WMI-Zi-rtF" firstAttribute="centerX" secondItem="z1N-8s-vem" secondAttribute="centerX" id="ztG-N4-sjx"/>
+                            <constraint firstItem="vbR-LN-Fph" firstAttribute="top" secondItem="a3U-as-Yc6" secondAttribute="bottom" constant="93" id="0RP-gI-jcD"/>
+                            <constraint firstItem="vbR-LN-Fph" firstAttribute="centerX" secondItem="z1N-8s-vem" secondAttribute="centerX" id="GRA-DP-SHY"/>
+                            <constraint firstItem="a3U-as-Yc6" firstAttribute="top" secondItem="s9g-mV-yn7" secondAttribute="bottom" constant="20" id="J7I-ig-4Ej"/>
+                            <constraint firstItem="vbR-LN-Fph" firstAttribute="leading" secondItem="z1N-8s-vem" secondAttribute="leadingMargin" constant="2" id="Q81-iR-gWZ"/>
+                            <constraint firstItem="a3U-as-Yc6" firstAttribute="centerX" secondItem="z1N-8s-vem" secondAttribute="centerX" id="c5T-ed-JcX"/>
+                            <constraint firstItem="pAa-pJ-pZx" firstAttribute="centerX" secondItem="hP7-NT-z6O" secondAttribute="centerX" id="heF-O0-aw3"/>
+                            <constraint firstItem="pAa-pJ-pZx" firstAttribute="centerY" secondItem="hP7-NT-z6O" secondAttribute="centerY" id="nQ3-X1-n8d"/>
+                            <constraint firstItem="LHU-L4-yWF" firstAttribute="top" secondItem="vbR-LN-Fph" secondAttribute="bottom" constant="41" id="nmd-bF-gxG"/>
                         </constraints>
                     </view>
                     <connections>
@@ -297,6 +311,9 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="ep4-wF-rKf" id="eZb-u8-0On"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                             </stackView>
@@ -308,6 +325,9 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="ep4-wF-rKf" id="s0F-3h-Pac"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                             </stackView>
@@ -354,12 +374,17 @@
                                     <action selector="signUpPressedWith_sender:" destination="ep4-wF-rKf" eventType="touchUpInside" id="hOE-QT-OkQ"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="K0j-F8-Ur8">
+                                <rect key="frame" x="177" y="369" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="9jB-Bl-e8J" firstAttribute="centerX" secondItem="vdg-3E-X4h" secondAttribute="centerX" id="4ha-nQ-5e8"/>
                             <constraint firstItem="U5j-JB-bg9" firstAttribute="leading" secondItem="vdg-3E-X4h" secondAttribute="leadingMargin" constant="9" id="6DW-04-5Kt"/>
                             <constraint firstItem="4Nf-Eg-kgH" firstAttribute="centerX" secondItem="U5j-JB-bg9" secondAttribute="centerX" id="8YX-sw-pq1"/>
+                            <constraint firstItem="K0j-F8-Ur8" firstAttribute="centerX" secondItem="wq8-X0-m4x" secondAttribute="centerX" id="AnM-1C-Zaa"/>
+                            <constraint firstItem="K0j-F8-Ur8" firstAttribute="top" secondItem="9jB-Bl-e8J" secondAttribute="bottom" constant="34" id="Dp0-3r-6KF"/>
                             <constraint firstItem="l4B-df-Je0" firstAttribute="centerX" secondItem="vdg-3E-X4h" secondAttribute="centerX" id="HMe-6M-7KB"/>
                             <constraint firstItem="4Nf-Eg-kgH" firstAttribute="width" secondItem="U5j-JB-bg9" secondAttribute="width" id="IdS-76-t7u"/>
                             <constraint firstItem="l4B-df-Je0" firstAttribute="top" secondItem="9jB-Bl-e8J" secondAttribute="bottom" constant="88" id="M6i-Sn-jeW"/>
@@ -374,6 +399,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="K0j-F8-Ur8" id="DuT-qU-o8v"/>
                         <outlet property="loginButton" destination="9jB-Bl-e8J" id="zEK-nP-t9F"/>
                         <outlet property="passwordTextField" destination="9bz-YC-cTj" id="bVk-g8-hBe"/>
                         <outlet property="signUpButton" destination="l4B-df-Je0" id="XE4-ZP-d3q"/>

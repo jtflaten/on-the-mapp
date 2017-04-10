@@ -22,7 +22,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
     // Do any additional setup after loading the view, typically from a nib.
     super.viewWillAppear(true)
-  
+    mapView.removeAnnotations(mapView.annotations)
     loadStudents(studentInfo: StudentLocation.studentLocationArray)
     
     }
@@ -84,21 +84,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
             if let toOpen = URL(string: (view.annotation?.subtitle!)!)  {
+                guard app.canOpenURL(toOpen) else {
+                    errorAlertView(errorMessage: "couldn't open that URL")
+                    return
+                }
                 app.open(toOpen, options: [:], completionHandler: nil)
             }
         }
     }
-    
+}
 
    
 
 
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
-
-}
 

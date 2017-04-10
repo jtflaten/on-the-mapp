@@ -30,4 +30,8 @@ class PostInfoViewController: UIViewController {
     func cancel(){
         parent!.dismiss(animated: true)
     }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
