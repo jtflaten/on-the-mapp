@@ -21,21 +21,21 @@ class UdacityClient: NSObject {
     //MARK: POST session, Login
     func loginThruUdacity(username: String, password: String, hostViewController: LoginViewController! ) {
         
-        let badCredentialsAlert = UIAlertController()
-        let dismissAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default) { action in
-            badCredentialsAlert.dismiss(animated: true, completion: nil)
-        }
-        badCredentialsAlert.title = "Uh-Oh"
-        badCredentialsAlert.message = ""
-        badCredentialsAlert.addAction(dismissAction)
-        
-        let otherFailureAlert = UIAlertController()
-        let dismissFaiure = UIAlertAction(title: "ok", style: UIAlertActionStyle.default) { action in
-            otherFailureAlert.dismiss(animated: true, completion: nil)
-        }
-        otherFailureAlert.title = "Uh-Oh"
-        otherFailureAlert.message = "There was a problem connecting"
-        otherFailureAlert.addAction(dismissFaiure)
+//        let badCredentialsAlert = UIAlertController()
+//        let dismissAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default) { action in
+//            badCredentialsAlert.dismiss(animated: true, completion: nil)
+//        }
+//        badCredentialsAlert.title = "Uh-Oh"
+//        badCredentialsAlert.message = ""
+//        badCredentialsAlert.addAction(dismissAction)
+//        
+//        let otherFailureAlert = UIAlertController()
+//        let dismissFaiure = UIAlertAction(title: "ok", style: UIAlertActionStyle.default) { action in
+//            otherFailureAlert.dismiss(animated: true, completion: nil)
+//        }
+//        otherFailureAlert.title = "Uh-Oh"
+//        otherFailureAlert.message = "There was a problem connecting"
+//        otherFailureAlert.addAction(dismissFaiure)
         
         let request = NSMutableURLRequest(url: URL(string: "https://www.udacity.com/api/session")!)
         request.httpMethod = "POST"
@@ -45,25 +45,23 @@ class UdacityClient: NSObject {
         let session = URLSession.shared
         let task = session.dataTask(with: request as URLRequest) { data, response, error in
             // if an error occurs, print it and re-enable the UI
-            func displayError(_ error: String) {
+            func displayError(_ errorString: String) {
                 performUIUpdatesOnMain {
-                    print(error)
-                    hostViewController.present(otherFailureAlert, animated: true, completion: nil)
+                    print(errorString)
+                    hostViewController.errorAlertView(errorMessage:error?.localizedDescription ??  "There was an error with your login info" )
                     hostViewController.activityIndicator.stopAnimating()
                 }
             }
             /* GUARD: Was there an error? */
             guard (error == nil) else {
                 displayError("There was an error with your request: \(String(describing: error))")
-                hostViewController.errorAlertView(errorMessage: error!.localizedDescription)
+                
                 return
             }
             /* GUARD: Did we get a successful 2XX response? */
 
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 displayError("Your request returned a status code other than 2xx!")
-                
-                print(response)
                 return
             }
             /* GUARD: Was there any data returned? */

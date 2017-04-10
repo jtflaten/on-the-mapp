@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 extension UIViewController{
-    func errorAlertView (errorMessage: String) {
-        let alert = UIAlertController(title: "Alert", message: errorMessage, preferredStyle: UIAlertControllerStyle.alert)
+    func errorAlertView (errorMessage: String?) {
+        let alert = UIAlertController(title: "Alert", message: errorMessage ?? "Something Went Wrong", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
