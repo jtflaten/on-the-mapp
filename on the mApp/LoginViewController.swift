@@ -36,7 +36,12 @@ class LoginViewController: UIViewController {
     
     @IBAction func signUpPressed(_sender: AnyObject) {
         let signUpUrl = URL(string: "https://auth.udacity.com/sign-up?next=https%3A%2F%2Fclassroom.udacity.com%2Fauthenticated")
-        UIApplication.shared.open(signUpUrl!, options: [:])
+        let googleSignUp = URL(string: "googlechromes://auth.udacity.com/sign-up?next=https%3A%2F%2Fclassroom.udacity.com%2Fauthenticated")
+//       if UIApplication.shared.canOpenURL(googleSignUp!) {
+            UIApplication.shared.open(googleSignUp!, options: [:])
+//        } else {
+//            UIApplication.shared.open(signUpUrl!, options: [:])
+//        }
     }
     
     

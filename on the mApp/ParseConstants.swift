@@ -21,6 +21,9 @@ extension ParseClient {
         static let AppIDHeaderField = "X-Parse-Application-Id"
         //MARK: URLs
         static let parseUrl = "https://parse.udacity.com/parse/classes"
+        static let ApiScheme = "https"
+        static let ApiHost = "parse.udacity.com"
+        static let ApiPath = "/parse/classes"
     }
     
     //MARK: Methods

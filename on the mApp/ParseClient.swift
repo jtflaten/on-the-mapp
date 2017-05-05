@@ -18,17 +18,18 @@ class ParseClient: NSObject {
     var session = URLSession.shared
     //MARK: Initializers
     //MARK: GET
-    func taskForGETMethod(_ method: String, parameters: String?, completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForGETMethod(_ method: String, parameters: [String:AnyObject]?, completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         //Set the parameters
-        var urlString = Constants.parseUrl + method
-        if let parameters = parameters {
-            urlString = (Constants.parseUrl + method + parameters)
-        }
+//        var urlString = Constants.parseUrl + method
+//        if let parameters = parameters {
+//            urlString = (Constants.parseUrl + method + parameters)
+        var urlString = buildURLFromParameters(parameters, withPathExtension: method)
+        
       
-        let url = NSURL(string: urlString)
+        let url = urlString
         /* 2/3. Build the URL, Configure the request */
-        let request = NSMutableURLRequest(url: url! as URL)
+        let request = NSMutableURLRequest(url: url as URL)
         request.addValue(Constants.AppID, forHTTPHeaderField: Constants.AppIDHeaderField)
         request.addValue(Constants.ApiKey, forHTTPHeaderField: Constants.ApiKeyHeaderField)
         /* 4. Make the request */
@@ -59,7 +60,6 @@ class ParseClient: NSObject {
             }
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
-            print(request)
             self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForGET)
         }
         
@@ -71,7 +71,7 @@ class ParseClient: NSObject {
     //   MARK: GET methods
     
     func getStudentLocations(_ completionHandlerForStudentLocations: @escaping (_ result: [StudentLocation]?, _ error: NSError?) -> Void){
-        let parameters = "?\(ParseClient.ParameterKeys.Limit)100&\(ParameterKeys.Order)-updatedAt"
+        let parameters = [ParseClient.ParameterKeys.Limit:100, ParameterKeys.Order: "-updatedAt"] as [ String: AnyObject]
         let method = String(Methods.StudentLocation)
         
         let _ = taskForGETMethod(method!, parameters: parameters ) { (results, error) in
@@ -80,8 +80,9 @@ class ParseClient: NSObject {
                 let userInfo = [NSLocalizedDescriptionKey: error]
                 completionHandlerForStudentLocations(nil, NSError(domain: "completionHandlerForGET", code: 1, userInfo: userInfo))
             }
+            
             guard (error == nil) else {
-                sendError(error: "there was a error in the request")
+                sendError(error: "there was a error in the request: \(String(describing: error))")
                 return
             }
             guard (results != nil) else {
@@ -101,7 +102,7 @@ class ParseClient: NSObject {
     }
     
     func getUserStudentLocation(_ completionHandlerForUserLocation: @escaping (_ userLocation: [[String: AnyObject]]?, _ error: NSError?) -> Void) {
-        let parameters = "?\(ParameterKeys.Where)%7B%22\(JSONResponseKeys.UniqueKey)%22%3A%22\(StudentLocation.userInfo.uniqueKey!)%22%7D"
+        let parameters = ["\(ParameterKeys.Where)":["{\(JSONResponseKeys.UniqueKey)":"\(StudentLocation.userInfo.uniqueKey!)}"]] as [String: AnyObject]
         let method = String(Methods.StudentLocation)
         
         let url = taskForGETMethod(method!, parameters: parameters) { (results, error) in
@@ -287,6 +288,23 @@ class ParseClient: NSObject {
         completionHandlerForConvertData(parsedResult, nil)
     }
     
+    private func buildURLFromParameters(_ parameters: [String:AnyObject]?, withPathExtension: String? = nil) -> URL {
+        
+        var components = URLComponents()
+        components.scheme = ParseClient.Constants.ApiScheme
+        components.host = ParseClient.Constants.ApiHost
+        components.path = ParseClient.Constants.ApiPath + (withPathExtension ?? "")
+        components.queryItems = [URLQueryItem]()
+        
+        if let parameters = parameters {
+            for (key, value) in parameters {
+                let queryItem = URLQueryItem(name: key, value: "\(value)")
+                components.queryItems!.append(queryItem)
+            }
+        }
+        
+        return components.url!
+    }
   
     func makeJsonForRequest() -> String  {
         var jsonForRequest = ""
